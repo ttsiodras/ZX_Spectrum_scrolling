@@ -1,15 +1,9 @@
 #include <input.h>
 #include <time.h>
-#include <graphics.h>
 #include <conio.h>
-
-#define printInk(k)          printf("\x10%c", '0'+(k))
-#define printPaper(k)        printf("\x11%c", '0'+(k))
 
 define(`INNER_ENGINE', `dnl
 #asm
-    ; push hl
-    ; push bc
     ld hl, eval(16384 + $3)  ; 16384 + $3
     ld b, 128 ; 128 lines from the top
     ld d, 32  ; 32 blocks, 8-pixels wide each
@@ -24,8 +18,6 @@ horizontal_loop_$1:
     djnz horizontal_loop_$1
     ld b, c ; restore "b" value for outer loop
     djnz vertical_loop_$1
-    ; pop de
-    ; pop hl
 #endasm')dnl
 
 void scrollLeft()
@@ -49,14 +41,14 @@ main()
     memset((char *)22528, 7, 768);
     gotoxy(0,0);
     zx_border(INK_BLACK);
-    printPaper(0);
-    printInk(3);
 
     // Emit some text that we will then scroll right/left...
-    for(int i=0; i<16; i++)
+    for(i=0; i<16; i++) {
         printf("[-] Let's move some pixels, shall we? It will be so much fun...\n");
-    printInk(4);
+        memset(22528 + 32*i, 1 + i%7, 32);
+    }
     printf("[-] Q to quit...\n");
+    memset(22528 + 32*i, 0x44, 32); i++;
 
     // Q will quit.
     uint qq = in_LookupKey('q');
@@ -77,7 +69,7 @@ main()
             break;
     }
     gotoxy(0, 17);
-    printInk(5);
     printf("[-] %3.1f FPS \n", ((float)frames)/(((float)total_clocks)/CLOCKS_PER_SEC));
+    memset(22528 + 32*i, 0x45, 32);
     return 0;
 }
