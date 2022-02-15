@@ -1,5 +1,7 @@
 It was fun, writing this. Memories from childhood!
 
+[![Scrolling per-pixel the Speccy's screen via Z80 ASM](https://img.youtube.com/vi/LsN2iZfjdZ0/0.jpg)](https://youtu.be/LsN2iZfjdZ0)
+
 - Scrolling the top 2/3rds of the Speccy's screen
   one pixel at a time - first right, then left...
 - ...and finally print the achieved frames per
