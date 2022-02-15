@@ -20,12 +20,34 @@ void cls()
     gotoxy(0,0);
 }
 
+void scrollLeft()
+{
+#asm
+    push hl
+    ld hl, 16384 + 4095
+    ld d, 128
+line_loop_left:
+    ld b, 32
+    or a
+inner_loop_left:
+    ld a, (hl)
+    rla
+    ld (hl), a
+    dec hl
+    djnz inner_loop_left
+    dec d
+    ld a, d
+    jnz line_loop_left
+    pop hl
+#endasm
+}
+
 void scrollRight()
 {
 #asm
     push hl
     ld hl, 16384
-    ld d, 192
+    ld d, 128
 line_loop:
     ld b, 32
     or a
@@ -56,7 +78,7 @@ main()
     memset((void *)22528.0, 7, 768);
     printPaper(0);
     printInk(3);
-    for(int i=0; i<20; i++)
+    for(int i=0; i<16; i++)
         printf("[-] Let's move some pixels, shall we? It will be so much fun...\n");
     printf("[-] Q to quit...\n");
 
@@ -69,18 +91,20 @@ main()
             break;
         // Rotate by 5 degrees on each iteration (360/72)
         st = clock();
-        scrollRight();
+        if (frames < 128)
+            scrollRight();
+        else
+            scrollLeft();
         en = clock();
         total_clocks += (en-st);
-#if 1
         // Update FPS info.
         frames++;
-        if (0xF == (frames & 0xF)) {
-            gotoxy(0, 3);
+        if (0x100 == (frames & 0x100)) {
+            gotoxy(0, 16);
             printInk(3);
             printf("[-] %3.1f FPS \n", ((float)frames)/(((float)total_clocks)/CLOCKS_PER_SEC));
+            break;
 	}
-#endif
     }
     return 0;
 }
