@@ -16,6 +16,7 @@
 # export ZCCCFG=$HOME/Github/z88dk/lib/config
 
 EXE:=scroller.tap
+SRC:=scroller.c
 
 Q=@
 ifeq ($V,1)
@@ -24,7 +25,7 @@ endif
 
 all:	${EXE}
 
-${EXE}:	scroller.c $(wildcard *.h)
+${EXE}:	${SRC}.m4 $(wildcard *.h)
 	${Q}echo "[CC] " $<
 	${Q}zcc +zx -lndos -create-app -O3 -o scroller $< -lm
 	${Q}rm -f scroller *.bin zcc_opt.def
@@ -35,12 +36,4 @@ run:	${EXE}
 
 clean:
 	${Q}echo "[CLEAN]"
-	${Q}rm -rf ${EXE} *.bin
-
-# This apparently messes up the FPS counting (i.e. the "clock()" calls).
-# It does appear to be a bit faster than "optimize1", 6.1 fps maybe.
-optimized_C:	scroller.c $(wildcard *.h)
-	${Q}echo "[CC] " $<
-	${Q}zcc +zx -compiler=sdcc -SO3 -DIN_C -lndos -create-app -O2 --opt-code-speed=all -Cc-unsigned -o statue_C statue.c -lmath48
-	${Q}rm -f statue_C *.bin zcc_opt.def
-	${Q}echo "[LD] " $@
+	${Q}rm -rf ${EXE} *.bin ${SRC}
