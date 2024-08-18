@@ -6,17 +6,72 @@ define(`INNER_ENGINE', `dnl
 #asm
     ld hl, eval(16384 + $3)  ; 16384 + $3
     ld b, 128 ; 128 lines from the top
-    ld d, 32  ; 32 blocks, 8-pixels wide each
 vertical_loop_$1:
-    ; djnz is faster, use "b" register in both loops
-    ld c, b ; save outer-loop value of "b"
-    ld b, d ; restore value of "32"
     or a    ; clear carry, used by rr / rl
-horizontal_loop_$1:
     $2 (hl)
     $1 hl
-    djnz horizontal_loop_$1
-    ld b, c ; restore "b" value for outer loop
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
+    $2 (hl)
+    $1 hl
     djnz vertical_loop_$1
 #endasm')dnl
 
