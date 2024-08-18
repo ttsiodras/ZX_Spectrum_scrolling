@@ -32,7 +32,7 @@ ${EXE}:	${SRC}.m4 $(wildcard *.h)
 	${Q}echo "[LD] " $@
 
 run:	${EXE}
-	fuse -g 2x $<
+	fuse -g tv4x $<
 
 clean:
 	${Q}echo "[CLEAN]"
