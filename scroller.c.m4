@@ -73,6 +73,7 @@ vertical_loop_$1:
     $2 (hl)
     $1 hl
     djnz vertical_loop_$1
+    halt
 #endasm')dnl
 
 void scrollLeft()
