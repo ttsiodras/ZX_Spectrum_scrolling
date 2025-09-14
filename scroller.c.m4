@@ -17,7 +17,7 @@ define(`INNER_ENGINE', `dnl
     ld b, 16 ; loop 16 x ...
 outer_loop_$1_$4:
     ld c, b
-    ld b, 8 ; loop 16 x 8 x (below) 32 bytes gives us the screen's top 2/3rds
+    ld b, 8 ; loop 16 x 8 x 32 bytes (below) gives us the screens top 2/3rds
 vertical_loop_$1_$4:
     or a    ; clear carry, used by rr / rl - dont "spill" carry to next line
 REPEAT_32(`    $2 (hl)
