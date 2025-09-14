@@ -13,13 +13,13 @@ define(`REPEAT_64', `REPEAT_32(`$1')REPEAT_32(`$1')')dnl
 
 define(`INNER_ENGINE', `dnl
 #asm
-    ld hl, eval(16384 + $3)
-    ld b, 16
+    ld hl, eval(16384 + $3) ; start at beginning (for INC) or end (for DEC)
+    ld b, 16 ; loop 16 x ...
 outer_loop_$1_$4:
     ld c, b
-    ld b, 8 ; 128 lines from the top
+    ld b, 8 ; loop 16 x 8 x (below) 32 bytes gives us the screen's top 2/3rds
 vertical_loop_$1_$4:
-    or a    ; clear carry, used by rr / rl
+    or a    ; clear carry, used by rr / rl - dont "spill" carry to next line
 REPEAT_32(`    $2 (hl)
     $1 l
 ')dnl
