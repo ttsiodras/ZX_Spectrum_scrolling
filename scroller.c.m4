@@ -7,9 +7,6 @@ define(`REPEAT_4', `REPEAT_2(`$1')REPEAT_2(`$1')')dnl
 define(`REPEAT_8', `REPEAT_4(`$1')REPEAT_4(`$1')')dnl
 define(`REPEAT_16', `REPEAT_8(`$1')REPEAT_8(`$1')')dnl
 define(`REPEAT_32', `REPEAT_16(`$1')REPEAT_16(`$1')')dnl
-define(`REPEAT_64', `REPEAT_32(`$1')REPEAT_32(`$1')')dnl
-
-// Sadly, REPEAT_64 makes code too far away for djnz :-)
 
 define(`INNER_ENGINE', `dnl
 #asm
