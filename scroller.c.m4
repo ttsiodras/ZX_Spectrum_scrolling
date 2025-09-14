@@ -2,6 +2,8 @@
 #include <time.h>
 #include <conio.h>
 
+define(`REPEAT_32', `$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1$1')dnl
+
 define(`INNER_ENGINE', `dnl
 #asm
     ld hl, eval(16384 + $3)
@@ -11,70 +13,9 @@ outer_loop_$1_$4:
     ld b, 8 ; 128 lines from the top
 vertical_loop_$1_$4:
     or a    ; clear carry, used by rr / rl
-    $2 (hl)
+REPEAT_32(`    $2 (hl)
     $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
-    $2 (hl)
-    $1 l
+')dnl
     djnz vertical_loop_$1_$4
     $1 h
     ld b, c
